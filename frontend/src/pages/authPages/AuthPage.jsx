@@ -1,4 +1,4 @@
-import React from "react";
+ 
 import { motion } from "framer-motion";
 import {Auth , provider} from "../../utils/firebase";
 import { signInWithPopup } from "firebase/auth";

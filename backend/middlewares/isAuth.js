@@ -1,8 +1,7 @@
 const jwt = require("jsonwebtoken");
 
 const isAuth = (req, res, next) => {
-    try {
-        console.log("auth cookies" , req.cookies)   
+    try { 
         const token = req.cookies.AuthToken; 
         if (!token) {
             return res.status(401).json({ message: "Unauthorized from Agent Interview" });
