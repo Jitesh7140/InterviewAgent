@@ -5,7 +5,7 @@ import { signInWithPopup } from "firebase/auth";
 import axios from "axios";
 
 
-function AuthPage() {  
+function AuthPage({isModel = false}) {  
 
   const handleGoogleAuth = async () => {
      try {
@@ -28,13 +28,13 @@ function AuthPage() {
 
 
   return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-[#f8f9fa] font-sans">
+    <div className={`w-full ${isModel ? "py-4" : "min-h-screen bg-[#f3f3f3] flex items-center justify-center px-6 py-20"}`}>
       {/* Main Card */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className="w-[90%] max-w-[440px] bg-white p-12 rounded-[40px] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] flex flex-col items-center text-center border border-gray-50"
+        className="w-full max-w-[440px] bg-white p-12 rounded-[40px] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] flex flex-col items-center text-center border border-gray-50"
       >
         
         {/* Logo Section */}
@@ -59,7 +59,7 @@ function AuthPage() {
         <motion.div
           animate={{ scale: [1, 1.03, 1] }}
           transition={{ duration: 3, repeat: Infinity }}
-          className="px-6 py-2.5 bg-[#eaffee] rounded-full flex items-center gap-2 mb-8"
+          className={`${isModel ? "max-w-md p-4 rounded-3xl " : "px-6 py-2.5 bg-[#eaffee] rounded-full flex items-center gap-2 mb-8"} `}
         >
           <span className="text-[#10b981] text-xl">✦</span>
           <span className="text-[#065f46] font-extrabold text-2xl">
