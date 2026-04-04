@@ -10,14 +10,13 @@ import {
   FileText,
   BarChart3,
 } from "lucide-react";
-import   {Link}  from "react-router-dom";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import Navbar from "../../components/Navbar";
 import img from "../../assets/ai-ans.png";
 import img2 from "../../assets/resume.png";
 import img3 from "../../assets/pdf.png";
 import img4 from "../../assets/history.png";
-
 
 const Home = () => {
   // Variantes para animaciones
@@ -81,18 +80,17 @@ const Home = () => {
           variants={fadeInUp}
           className="flex flex-wrap justify-center gap-5 mb-12"
         >
-          <button className="bg-black text-white px-10 py-4 rounded-full font-bold hover:bg-slate-800 transition-all shadow-xl hover:shadow-black/20 active:scale-95 flex items-center gap-2   ">
-             <Link to="/interview">
-              <Play size={18} fill="white" className="inline" /> 
+          <Link to="/interview">
+            <button className="bg-black text-white px-10 py-4 rounded-full font-bold hover:bg-slate-800 transition-all shadow-xl hover:shadow-black/20 active:scale-95 flex items-center gap-2   ">
+              <Play size={18} fill="white" className="inline" />
               Start Interview
-             </Link>
-            
-          </button>
-          <button className="bg-white border border-slate-200 text-slate-700 px-10 py-4 rounded-full font-bold hover:bg-slate-50 transition-all shadow-sm active:scale-95">
-            <Link to="/history">
+            </button>
+          </Link>
+          <Link to="/history">
+            <button className="bg-white border border-slate-200 text-slate-700 px-10 py-4 rounded-full font-bold hover:bg-slate-50 transition-all shadow-sm active:scale-95">
               View History
-            </Link>
-          </button>
+            </button>
+          </Link>
         </motion.div>
       </motion.div>
 

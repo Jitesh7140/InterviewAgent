@@ -11,6 +11,7 @@ export const askAi = async (messages) => {
       {
         model: "openai/gpt-4o",
         messages: messages,
+        max_tokens: 1000,
       },
       {
         headers: {
