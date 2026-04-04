@@ -175,12 +175,11 @@ function Set1Setup({ onStart }) {
                 onChange={(e) => setmode(e.target.value)}
                 className="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-lg appearance-none focus:ring-2 focus:ring-green-400 focus:outline-none bg-white cursor-pointer"
               >
-                <option value="" disabled>
+                <option value="technical" disabled>
                   Select Interview Type
                 </option>
                 <option value="technical">Technical Interview</option>
-                <option value="hr">HR Interview</option>
-                <option value="behavioral">Behavioral Interview</option>
+                <option value="HR">HR Interview</option> 
               </select>
               <ChevronDown
                 className="absolute right-3 top-3 text-gray-400 pointer-events-none"
@@ -242,7 +241,7 @@ function Set1Setup({ onStart }) {
                 variants={itemVariants}
                 initial="hidden"
                 animate="visible"
-                className="bg-gradient-to-br from-green-50 to-emerald-50 border border-green-200 rounded-2xl p-5 shadow-sm mt-4"
+                className="bg-linear-to-br from-green-50 to-emerald-50 border border-green-200 rounded-2xl p-5 shadow-sm mt-4"
               >
                 {/* Header with Icon */}
                 <div className="flex items-center gap-2 mb-4 border-b border-green-100 pb-2">
