@@ -1,6 +1,8 @@
 import React from 'react'
 
-function Set3Report() {
+function Set3Report({report}) {
+
+  console.log("report in 3  step:" , report)
   return (
     <div>Set3Report</div>
   )

@@ -5,7 +5,7 @@ import Set2Interview from '../../components/Set2Interview'
 import Set3Report from '../../components/Set3Report'
 
 function InterView( ) {
-  const [step,setStep] = useState(2)
+  const [step,setStep] = useState(1)
   const [interviewData,setInterviewData] = useState(null)
 
 
