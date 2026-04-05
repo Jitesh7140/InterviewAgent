@@ -12,12 +12,17 @@ import {
   Loader2,
 } from "lucide-react";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser } from "../redux/userSlice";
 
 function Set1Setup({ onStart }) {
+  const {userData} = useSelector((state) => state.user)
+  const dispatch = useDispatch()
   const [role, setRole] = useState("");
   const [experience, setExperience] = useState("");
-  const [mode, setmode] = useState("");
+  const [mode, setmode] = useState("Technical");
   const [file, setFile] = useState(null);
+  const [loading,setLoading] = useState(false)
   const [project, setProject] = useState([]);
   const [skills, setSkills] = useState([]);
   const [resumeText, setResumeText] = useState("");
@@ -70,10 +75,31 @@ function Set1Setup({ onStart }) {
     }
   };
 
-  const handleStartInterview = () => {
-    onStart &&
-      onStart({ role, experience, mode, file, project, skills, resumeText });
-  };
+  
+
+
+  const handleStart = async () => {
+    setLoading(true)
+    try {
+      const result = await axios.post( `${import.meta.env.VITE_SERVER_URL}/api/interview/generate-questions`,
+        { role, experience, mode, project, skills, resumeText },
+        { withCredentials: true }
+      )
+
+        console.log(result)
+        if(userData){
+          dispatch(setUser({...userData , credits: result.data.creditsLeft}))
+        }
+        setLoading(false)
+        onStart(result.data)
+
+
+    } catch (error) {
+      console.error('Error generating questions:', error);
+      setLoading(false)
+    }
+  }
+ 
 
   const containerVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -175,7 +201,7 @@ function Set1Setup({ onStart }) {
                 onChange={(e) => setmode(e.target.value)}
                 className="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-lg appearance-none focus:ring-2 focus:ring-green-400 focus:outline-none bg-white cursor-pointer"
               >
-                <option value="technical" disabled>
+                <option value=" " disabled>
                   Select Interview Type
                 </option>
                 <option value="technical">Technical Interview</option>
@@ -300,17 +326,18 @@ function Set1Setup({ onStart }) {
 
                 {/* Subtle Footer Info */}
                 <p className="text-[10px] text-green-600/70 mt-4 italic text-center">
-                  Fields have been auto-filled based on your resume.
+                  Fields have been auto-filled based on your resume.Select Interview Type and click on start interview
                 </p>
               </motion.div>
             )}
             {/* START BUTTON */}
             <motion.button
               type="button"
-              disabled={isButtonDisabled}
+              disabled={isButtonDisabled || loading}
               onClick={(e) => {
-                e.stopPropagation();
-                handleStartInterview();
+                e.stopPropagation(); 
+                handleStart();
+
               }}
               className={`w-full py-3 rounded-lg font-semibold shadow-lg transition-all flex items-center justify-center gap-2 ${
                 isButtonDisabled
@@ -318,7 +345,7 @@ function Set1Setup({ onStart }) {
                   : "bg-[#4A5568] text-white hover:bg-slate-700"
               }`}
             >
-              Start Interview
+              { loading ? <Loader2 className="animate-spin" size={20} /> : "Start Interview"}
             </motion.button>
           </div>
         </div>

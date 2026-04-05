@@ -4,8 +4,8 @@ import Set1Setup from '../../components/Set1Steup'
 import Set2Interview from '../../components/Set2Interview'
 import Set3Report from '../../components/Set3Report'
 
-function InterView({report}) {
-  const [step,setStep] = useState(1)
+function InterView( ) {
+  const [step,setStep] = useState(2)
   const [interviewData,setInterviewData] = useState(null)
 
 
@@ -31,7 +31,7 @@ function InterView({report}) {
       )}
       
       {step==3 && (
-        <Set3Report  />
+        <Set3Report report={interviewData}  />
       )}
       
     </div>

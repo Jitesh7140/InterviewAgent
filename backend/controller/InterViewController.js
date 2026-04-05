@@ -90,10 +90,10 @@ export const analyzResume = async (req, res, next) => {
 
 export const generateQuestions = async (req, res) => {
   try {
-    const { role, experience, mode, resumeText, projects, skills } = req.body;
+    let { role, experience, mode, resumeText, projects, skills } = req.body;
 
     role = role?.trim();
-    experience = experience?.trim();
+    experience = experience?.trim(); 
     mode = mode?.trim();
 
     if (!role || !experience || !mode) {
@@ -190,16 +190,20 @@ Make questions based on the candidate’s role, experience,interviewMode, projec
     user.credits -= 20;
     await user.save();
 
+    const difficulties = ["easy", "easy", "medium", "medium", "hard"];
+    const timeLimits = [60, 60, 90, 90, 120];
+
     const interview = await Interview.create({
       userId: req.userId,
       role,
       experience,
       mode,
       resumeText,
-      questions: questionsArray.map((q) => ({
+      questions: questionsArray.map((q, index) => ({
         question: q,
-        difficulty: ["easy", "easy", "medium", "medium", "hard"],
-        timeLimit: [60, 60, 90, 90, 120],
+        // Index 0 pe easy, index 1 pe easy, etc.
+        difficulty: difficulties[index] || "medium",
+        timeLimit: timeLimits[index] || 60,
       })),
       status: "incomplete",
     });

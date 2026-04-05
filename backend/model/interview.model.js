@@ -29,7 +29,7 @@ const questionsSchema = new mongoose.Schema({
     default: 0,
   },
   correctness: {
-    type: String,
+    type: Number,  
     default: 0,
   },
 });
@@ -51,7 +51,7 @@ const interviewSchema = new mongoose.Schema(
     },
     mode: {
       type: String,
-      enum: ["HR", "technical"],
+      enum: ["HR", "Technical"],
       default: "technical",
       required: true,
     },
