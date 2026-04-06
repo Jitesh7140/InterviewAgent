@@ -93,7 +93,7 @@ export const generateQuestions = async (req, res) => {
     let { role, experience, mode, resumeText, projects, skills } = req.body;
 
     role = role?.trim();
-    experience = experience?.trim(); 
+    experience = experience?.trim();
     mode = mode?.trim();
 
     if (!role || !experience || !mode) {
@@ -429,5 +429,69 @@ export const finishInterview = async (req, res) => {
     res
       .status(500)
       .json({ success: false, message: "Failed to finish interview" });
+  }
+};
+
+export const getMyInterviews = async (req, res) => {
+  try {
+    const interviews = await Interview.find({ userId: req.userId })
+      .sort({
+        createdAt: -1,
+      })
+      .select("role experience mode status finalScore createdAt");
+
+    res.status(200).json({ success: true, interviews });
+  } catch (error) {
+    console.error("Error fetching interviews:", error);
+    res
+      .status(500)
+      .json({ success: false, message: "Failed to fetch interviews" });
+  }
+};
+
+export const getInterviewReport = async (req, res) => {
+  try {
+    const interview = await Interview.findById(req.params.id);
+
+    if (!interview) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Interview not found" });
+    }
+
+    const totalQuestions = interview.questions.length;
+
+    let totalConfidence = 0;
+    let totalCommunication = 0;
+    let totalCorrectness = 0;
+
+    interview.questions.forEach((q) => {
+      totalConfidence += q.confidence;
+      totalCommunication += q.communication;
+      totalCorrectness += q.correctness;
+    });
+
+     
+    const avgConfidence = totalQuestions ? totalConfidence / totalQuestions : 0;
+    const avgCommunication = totalQuestions
+      ? totalCommunication / totalQuestions
+      : 0;
+    const avgCorrectness = totalQuestions
+      ? totalCorrectness / totalQuestions
+      : 0;
+
+    return res.status(200).json({
+      success: true,
+      finalScore: interview.finalScore,
+      confidence: Number(avgConfidence.toFixed(1)),
+      communication: Number(avgCommunication.toFixed(1)),
+      correctness: Number(avgCorrectness.toFixed(1)),
+      questionWiseScores: interview.questions,
+    });
+  } catch (error) {
+    console.error("Error fetching interview report:", error);
+    res
+      .status(500)
+      .json({ success: false, message: "Failed to fetch interview report" });
   }
 };

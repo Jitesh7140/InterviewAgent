@@ -6,6 +6,9 @@ import InterView from './pages/interView/InterView.jsx'
 import axios from "axios"
 import { useDispatch } from 'react-redux'
 import { setUser } from './redux/userSlice.js'
+import InterviewHistory from './pages/history/InterviewHistory.jsx'
+import Pricing from './pages/pricing/Pricing.jsx'
+import InterviewReport from './pages/report/InterviewReport.jsx'
  
 
 function App() {
@@ -31,6 +34,9 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/Auth" element={<Auth />} />
         <Route path="/interview" element={<InterView />} />
+        <Route path="/history" element={<InterviewHistory />} />
+        <Route path="/pricing" element={< Pricing />} />
+        <Route path="/report/:id" element={< InterviewReport />} />
       </Routes>
     </BrowserRouter>
   )

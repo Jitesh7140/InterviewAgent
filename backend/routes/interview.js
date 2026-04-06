@@ -9,6 +9,9 @@ route.post("/generate-questions",isAuth,interviewController.generateQuestions);
 route.post("/submit-answer",isAuth,interviewController.submitAnswer);
 route.post("/finish",isAuth,interviewController.finishInterview);
 
+route.get("/getInterviews",isAuth,interviewController.getMyInterviews);
+route.get("/report/:id",isAuth,interviewController.getInterviewReport);
+
 
 
 module.exports = route;
