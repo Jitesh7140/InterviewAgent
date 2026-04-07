@@ -1,66 +1,50 @@
 const User = require("../model/user.model.js");
-const jwt = require("jsonwebtoken");
 const generateToken = require("../config/JwtToken.js");
+
+// Ek hi jagah options define karein taaki mismatch na ho
+const cookieOptions = {
+  httpOnly: true,
+  secure: true,      // HTTPS ke liye
+  sameSite: "none",  // Cross-site requests ke liye
+  path: "/",         // Poore domain ke liye
+};
 
 exports.googleAuth = async (req, res) => {
   try {
     const { name, email } = req.body;
-    const user = await User.findOne({ email });
+    let user = await User.findOne({ email });
 
-    if (user) {
-      let token = await generateToken(user._id);
-      res.cookie("AuthToken", token, {
-        httpOnly: true,
-        secure: true,
-        sameSite: "none",
-        maxAge: 7 * 24 * 60 * 60 * 1000,
-      });
-
-      // ADD RETURN HERE TO STOP EXECUTION
-      return res.status(200).json({
-        message: "User already exists",
-        user,
-        token,
-      });
+    if (!user) {
+      user = new User({ name, email });
+      await user.save();
     }
 
-    // This code will only run if user was NOT found
-    const newUser = new User({
-      name,
-      email,
-    });
-    await newUser.save();
+    const token = await generateToken(user._id);
 
-    let token = await generateToken(newUser._id);
+    // Cookie set karein
     res.cookie("AuthToken", token, {
-      httpOnly: true,
-      secure: true,
-      sameSite: "strict",
-      maxAge: 7 * 24 * 60 * 60 * 1000,
+      ...cookieOptions,
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
 
-    res.status(200).json({
-      message: "User created successfully",
-      user: newUser,
-      token,
+    return res.status(200).json({
+      success: true,
+      user,
     });
   } catch (error) {
-    console.log(error);
-    // Ensure we don't try to send a second response if headers were already sent
-    if (!res.headersSent) {
-      return res
-        .status(500)
-        .json({ message: "Internal server error on Google Auth" });
-    }
+    console.error("Auth Error:", error);
+    return res.status(500).json({ message: "Internal server error" });
   }
 };
 
 exports.logout = async (req, res) => {
   try {
-    res.clearCookie("AuthToken");
-    res.status(200).json({ message: "User logged out successfully" });
+    // Exact same options ke saath cookie clear karein
+    res.clearCookie("AuthToken", cookieOptions);
+    
+    return res.status(200).json({ message: "Logged out successfully" });
   } catch (error) {
-    console.log(error);
-    return res.status(500).json({ message: "Internal server error on Logout" });
+    console.error("Logout Error:", error);
+    return res.status(500).json({ message: "Logout failed" });
   }
 };
