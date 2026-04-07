@@ -73,6 +73,12 @@ const Navbar = () => {
       setIsProfileOpen(false);
     }
   };
+ 
+  useEffect(() => { 
+    if (user?.userData) {
+      setIsAuthModalOpen(false);  
+    }
+  }, [user?.userData]); // Ye tab chalega jab userData ki value badlegi
 
   return (
     <>

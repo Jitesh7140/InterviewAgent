@@ -23,7 +23,7 @@ function AuthModel({ onClose }) {
 
   return (
     <div 
-      className="fixed inset-0 z-[999] flex items-center justify-center bg-black/40 backdrop-blur-sm px-4"
+      className="fixed inset-0 z-999 flex items-center justify-center bg-black/40 backdrop-blur-sm px-4"
       onClick={handleOutsideClick}
     >
       <div 
