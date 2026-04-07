@@ -48,7 +48,7 @@ const Navbar = () => {
       });
       dispatch(setUser(null));
       setIsProfileOpen(false);
-      navigate("/");
+      window.location.href = "/";
     } catch (error) {
       console.error("Error logging out:", error);
     }
