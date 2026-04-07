@@ -1,12 +1,11 @@
 import { motion } from "framer-motion";
 import { Auth, provider } from "../../utils/firebase";
 import { signInWithPopup } from "firebase/auth";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import axios from "axios"; 
 
 function AuthPage({ isModel = false }) {
 
-  const navigate = useNavigate();
+   
   const handleGoogleAuth = async () => {
     try {
       const response = await signInWithPopup(Auth, provider);
@@ -18,9 +17,9 @@ function AuthPage({ isModel = false }) {
         withCredentials: true,
       });
       console.log(result.data);
-      navigate("/");
+      window.location.href = "/";
        
-        
+
     } catch (error) {
       console.log(error);
     }
