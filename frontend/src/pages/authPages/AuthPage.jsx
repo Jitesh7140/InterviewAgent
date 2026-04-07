@@ -9,7 +9,7 @@ function AuthPage({ isModel = false }) {
     try {
       const response = await signInWithPopup(Auth, provider);
 
-      const result = await axios.post("http://localhost:5000/api/auth/googleAuth", {
+      const result = await axios.post(`${import.meta.env.VITE_SERVER_URL}/api/auth/googleAuth`, {
         name: response.user.displayName,
         email: response.user.email,
       }, {
