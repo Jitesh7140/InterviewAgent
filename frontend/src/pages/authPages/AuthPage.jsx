@@ -19,7 +19,8 @@ function AuthPage({ isModel = false }) {
       });
       console.log(result.data);
       navigate("/");
-
+       
+        
     } catch (error) {
       console.log(error);
     }

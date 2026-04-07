@@ -56,21 +56,23 @@ const Navbar = () => {
 
   // Helper to handle profile click (Open modal if no user, else open dropdown)
   const handleProfileClick = () => {
-    if (!user?.userData) {
+    if (!user) {
       setIsAuthModalOpen(true);
     } else {
       setIsProfileOpen(!isProfileOpen);
       setIsCreditsOpen(false);
+      setIsAuthModalOpen(false);
     }
   };
-
+  
   // Helper to handle credits click
   const handleCreditsClick = () => {
-    if (!user?.userData) {
+    if (!user) {
       setIsAuthModalOpen(true);
     } else {
       setIsCreditsOpen(!isCreditsOpen);
       setIsProfileOpen(false);
+      setIsAuthModalOpen(false);
     }
   };
 
