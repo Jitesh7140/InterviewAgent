@@ -123,7 +123,10 @@ const Navbar = () => {
                       </span>
                     </div>
                     <div className="border-t border-gray-50 pt-2">
-                      <button className="w-full flex items-center gap-2 px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 transition-colors">
+                      <button
+                        onClick={() => navigate("/pricing")}
+                        className="w-full flex items-center gap-2 px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 transition-colors"
+                      >
                         <PlusCircle size={16} className="text-blue-500" /> Add
                         Credits
                       </button>

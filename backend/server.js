@@ -8,7 +8,8 @@ dotenv.config();
 // manaul models
 const AuthRoute = require("./routes/AuthRoute");
 const UserRoute = require("./routes/UserRoute");
-const InterviewRoute = require("./routes/interview");
+const InterviewRoute = require("./routes/interviewRoute");
+const PaymentRoute = require("./routes/paymentRoute");
 const connectDB = require("./config/db");
 connectDB();
  

@@ -283,7 +283,7 @@ function Set2Interview({ interviewData, onFinish }) {
     setFeedback("");
 
     
-    if(currentIndex +1 >= questions.length -1){
+    if(currentIndex + 1 >= questions.length){
       finishInterview(interviewData);
       return;
     }

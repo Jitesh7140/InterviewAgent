@@ -2,7 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 // ArrowLeft icon add kiya hai
-import { Calendar, Award, Briefcase, ChevronRight, Clock, ArrowLeft } from "lucide-react"; 
+import {
+  Calendar,
+  Award,
+  Briefcase,
+  ChevronRight,
+  Clock,
+  ArrowLeft,
+} from "lucide-react";
 
 function InterviewHistory() {
   const [interviews, setInterviews] = useState([]);
@@ -17,6 +24,7 @@ function InterviewHistory() {
           { withCredentials: true },
         );
         if (response.data.success) {
+          console.log(response.data);
           setInterviews(response.data.interviews);
         }
       } catch (error) {
@@ -32,9 +40,8 @@ function InterviewHistory() {
   return (
     <div className="min-h-screen bg-[#F9FAFB] p-6 md:p-12 font-sans text-slate-800">
       <div className="max-w-5xl mx-auto">
-        
         {/* Back Button */}
-        <button 
+        <button
           onClick={() => navigate("/")} // Aap yahan dashboard ka path bhi daal sakte hain
           className="flex items-center gap-2 text-slate-500 hover:text-slate-900 transition-colors mb-6 group"
         >
@@ -73,8 +80,14 @@ function InterviewHistory() {
                       {item.role}
                     </h3>
                     <div className="flex flex-wrap gap-4 mt-1 text-sm text-slate-500">
-                      <span className="flex items-center gap-1">
-                        <Clock className="w-4 h-4" /> {item.experience} Years Exp.
+                      <span className="flex items-center gap-1 max-w-[120px]">
+                        <Clock className="w-4 h-4 shrink-0" />
+                        <span
+                          className="truncate"
+                          title={`${item.experience} Years Exp.`}
+                        >
+                          {item.experience} Years Exp.
+                        </span>
                       </span>
                       <span className="flex items-center gap-1 text-indigo-600 font-medium">
                         {item.mode}
