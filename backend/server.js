@@ -19,7 +19,7 @@ const PORT = process.env.PORT;
 app.use(express.json());
 
 const corsOptions = {
-  origin: process.env.FRONTEND_URL,
+  origin: "https://interviewagent-2-frontend.onrender.com",
   credentials: true,
 };
 app.use(cors(corsOptions));
