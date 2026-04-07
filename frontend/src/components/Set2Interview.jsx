@@ -317,16 +317,16 @@ function Set2Interview({ interviewData, onFinish }) {
   }, [])
 
   return (
-    <div className="min-h-screen bg-[#f1f5f9] flex items-center justify-center p-3 md:p-6 font-sans antialiased text-slate-800">
+    <div className="min-h-screen bg-[#f1f5f9] flex items-start lg:items-center justify-center p-3 lg:p-6 font-sans antialiased text-slate-800 overflow-y-auto">
       <motion.div
         initial={{ opacity: 0, scale: 0.99 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="w-full max-w-6xl bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-200 flex flex-col md:flex-row h-auto md:h-[85vh] max-h-[700px]"
+        className="w-full max-w-6xl bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-200 flex flex-col lg:flex-row min-h-screen lg:min-h-0 lg:h-[90vh]"
       >
         {/* LEFT SIDEBAR: Avatar & Stats */}
-        <div className="w-full md:w-72 lg:w-80 bg-slate-50/50 p-3 md:p-4 flex flex-col gap-3 border-b md:border-b-0 md:border-r border-slate-200 shrink-0 h-full overflow-y-auto md:overflow-hidden">
-          {/* AI Avatar Video - Fixed Height for consistency */}
-          <div className="relative rounded-xl overflow-hidden bg-slate-900 aspect-video md:h-36 lg:h-44 shadow-sm border border-slate-200 shrink-0">
+        <div className="w-full lg:w-80 bg-slate-50/50 p-3 lg:p-4 flex flex-col gap-3 border-b lg:border-b-0 lg:border-r border-slate-200 shrink-0 lg:h-full lg:overflow-hidden">
+          {/* AI Avatar Video */}
+          <div className="relative rounded-xl overflow-hidden bg-slate-900 mx-auto aspect-video h-28 sm:h-32 lg:h-44 lg:w-full shadow-sm border border-slate-200 shrink-0">
             <video
               src={videoSource}
               key={videoSource}
@@ -344,8 +344,8 @@ function Set2Interview({ interviewData, onFinish }) {
             </div>
           </div>
 
-          {/* Subtitle Area - Fixed height with scroll to prevent layout shifting */}
-          <div className="bg-slate-800/5 border border-slate-200 h-24 md:h-28 text-slate-700 p-3 rounded-xl overflow-y-auto scrollbar-thin scrollbar-thumb-slate-200 shrink-0 shadow-inner">
+          {/* Subtitle Area - Flex to prevent layout shifting */}
+          <div className="bg-slate-800/5 border border-slate-200 min-h-20 flex-1 lg:flex-none lg:min-h-28 text-slate-700 p-3 rounded-xl overflow-y-auto scrollbar-thin scrollbar-thumb-slate-200 shrink-0 shadow-inner">
             <span className="text-[8px] font-black uppercase text-slate-400 block mb-1 tracking-widest">
               Live Captions
             </span>
@@ -361,7 +361,7 @@ function Set2Interview({ interviewData, onFinish }) {
           </div>
 
           {/* Status Card - Flexible but stays within bounds */}
-          <div className="flex-1 bg-white border border-slate-200 rounded-xl p-4 flex flex-col shadow-sm min-h-0">
+          <div className="flex-1 bg-white border border-slate-200 rounded-xl p-4 flex flex-col shadow-sm min-h-0 lg:min-h-[200px]">
             <div className="flex justify-between items-center mb-2 shrink-0">
               <span className="text-[9px] text-slate-400 font-bold uppercase tracking-widest">
                 Interview Status
@@ -411,7 +411,7 @@ function Set2Interview({ interviewData, onFinish }) {
         </div>
 
         {/* RIGHT CONTENT: Interview Feed */}
-        <div className="flex-1 flex flex-col bg-white p-5 md:p-8 overflow-hidden">
+        <div className="flex-1 flex flex-col bg-white p-5 lg:p-8 overflow-y-auto lg:overflow-hidden">
           <header className="flex items-center gap-2 mb-5 border-b border-slate-50 pb-4">
             <div className="p-2 bg-emerald-50 rounded-lg text-emerald-600">
               <Bot size={18} />
@@ -432,12 +432,12 @@ function Set2Interview({ interviewData, onFinish }) {
           </div>
 
           {/* Answer Area */}
-          <div className="flex-1 mb-5 min-h-[150px]">
+          <div className="flex-none lg:flex-1 mb-5 min-h-[100px] lg:min-h-[150px]">
             <textarea
               value={answer}
               onChange={(e) => setAnswer(e.target.value)}
               placeholder="Your answer goes here..."
-              className="w-full h-full p-5 bg-white border border-slate-200 rounded-xl focus:border-emerald-400 focus:ring-2 focus:ring-emerald-50 transition-all outline-none text-slate-600 text-sm md:text-base leading-relaxed placeholder:text-slate-300 shadow-inner resize-none"
+              className="w-full h-full min-h-[100px] lg:min-h-[150px] p-4 lg:p-5 bg-white border border-slate-200 rounded-xl focus:border-emerald-400 focus:ring-2 focus:ring-emerald-50 transition-all outline-none text-slate-600 text-sm md:text-base leading-relaxed placeholder:text-slate-300 shadow-inner resize-y lg:resize-none"
             />
           </div>
 
