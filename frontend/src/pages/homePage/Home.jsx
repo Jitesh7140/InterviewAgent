@@ -142,6 +142,8 @@ const FeatureCard = ({ image, icon, title, desc, color }) => (
 );
 
 const StepCard = ({ step, icon, title, desc }) => (
+
+
   <div className="relative p-6 md:p-8 border border-slate-800 rounded-2xl hover:border-emerald-500/50 transition-colors group">
     <div className="text-emerald-500 mb-4 group-hover:scale-110 transition-transform duration-300">{icon}</div>
     <span className="text-slate-600 text-[10px] font-mono mb-2 block tracking-widest">{step}</span>
