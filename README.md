@@ -7,7 +7,7 @@ An intelligent AI-based Interview Web Application built using the MERN Stack tha
 ✨ AI Interview Simulation 
 
 Real-time interview experience with AI-generated questions
-Adaptive questioning based on user responses
+Adaptive questioning based on user responses 
 
 🧠 Smart Feedback System
 
