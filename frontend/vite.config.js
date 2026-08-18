@@ -11,6 +11,11 @@ export default defineConfig({
   ],
   server: {
     host: "0.0.0.0",        // ya "0.0.0.0"
-    port: 5173         // optional (default b hi 5173 hota hai)
+    port: 5173,         // optional (default b hi 5173 hota hai)
+    // Firebase Google popup sign-in ke liye zaroori: iske bina Chrome
+    // window.closed check ko block kar deta hai aur signInWithPopup kabhi resolve nahi hota
+    headers: {
+      "Cross-Origin-Opener-Policy": "same-origin-allow-popups",
+    },
   }
 })  

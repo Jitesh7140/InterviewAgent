@@ -2,11 +2,15 @@ const User = require("../model/user.model.js");
 const generateToken = require("../config/JwtToken.js");
 
 // Ek hi jagah options define karein taaki mismatch na ho
+// Local (http://localhost) pe secure+sameSite=none cookie set hi nahi hoti,
+// isliye production me hi strict cross-site cookie use karo.
+const isProduction = process.env.NODE_ENV === "production";
+
 const cookieOptions = {
   httpOnly: true,
-  secure: true,      // HTTPS ke liye
-  sameSite: "none",  // Cross-site requests ke liye
-  path: "/",         // Poore domain ke liye
+  secure: isProduction,               // HTTPS ke liye (prod)
+  sameSite: isProduction ? "none" : "lax", // Cross-site requests ke liye (prod), localhost pe lax
+  path: "/",                          // Poore domain ke liye
 };
 
 exports.googleAuth = async (req, res) => {

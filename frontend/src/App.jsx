@@ -9,16 +9,16 @@ import { setUser } from './redux/userSlice.js'
 import InterviewHistory from './pages/history/InterviewHistory.jsx'
 import Pricing from './pages/pricing/Pricing.jsx'
 import InterviewReport from './pages/report/InterviewReport.jsx'
- 
+
 
 function App() {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    const getUser = async() => {
+    const getUser = async () => {
       try {
-        const res = await axios.get(`${import.meta.env.VITE_SERVER_URL}/api/user/getuser`,{withCredentials:true})
-        dispatch(setUser(res.data)) 
+        const res = await axios.get(`${import.meta.env.VITE_SERVER_URL}/api/user/getuser`, { withCredentials: true })
+        dispatch(setUser(res.data))
       } catch (error) {
         console.error("Error fetching user:", error)
         dispatch(setUser(null))

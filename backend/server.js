@@ -12,29 +12,22 @@ const InterviewRoute = require("./routes/interviewRoute");
 const PaymentRoute = require("./routes/paymentRoute");
 const connectDB = require("./config/db");
 connectDB();
- 
 
-const app = express(); 
+const app = express();
 const PORT = process.env.PORT;
 app.use(express.json());
 
 const corsOptions = {
-  origin: "https://interviewagent-2-frontend.onrender.com",
+  origin: "http://localhost:5173",
   credentials: true,
 };
 app.use(cors(corsOptions));
 app.use(cookieParser());
 
-
-
-
-app.use('/api/auth',AuthRoute)
-app.use('/api/user',UserRoute)
-app.use('/api/interview',InterviewRoute)
-app.use('/api/payment',PaymentRoute)
-
-
-
+app.use("/api/auth", AuthRoute);
+app.use("/api/user", UserRoute);
+app.use("/api/interview", InterviewRoute);
+app.use("/api/payment", PaymentRoute);
 
 app.listen(PORT, () => {
   console.log(`Server running on port http://localhost:${PORT}`);

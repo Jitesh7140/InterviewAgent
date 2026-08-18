@@ -1,13 +1,18 @@
 import { motion } from "framer-motion";
+import { useState } from "react";
 import { Auth, provider } from "../../utils/firebase";
 import { signInWithPopup } from "firebase/auth";
-import axios from "axios"; 
+import axios from "axios";
 
 function AuthPage({ isModel = false }) {
+  const [isSigningIn, setIsSigningIn] = useState(false);
+  const [authError, setAuthError] = useState("");
 
-   
   const handleGoogleAuth = async () => {
     try {
+      setAuthError("");
+      setIsSigningIn(true);
+
       const response = await signInWithPopup(Auth, provider);
 
       const result = await axios.post(`${import.meta.env.VITE_SERVER_URL}/api/auth/googleAuth`, {
@@ -18,10 +23,10 @@ function AuthPage({ isModel = false }) {
       });
       console.log(result.data);
       window.location.href = "/";
-       
-
     } catch (error) {
       console.log(error);
+      setAuthError(error.code || error.message || "Login failed, please try again.");
+      setIsSigningIn(false);
     }
   }
 
@@ -79,9 +84,10 @@ function AuthPage({ isModel = false }) {
         {/* Google Button */}
         <motion.button
           onClick={handleGoogleAuth}
+          disabled={isSigningIn}
           whileHover={{ y: -2 }}
           whileTap={{ scale: 0.98 }}
-          className="w-full cursor-pointer bg-[#111827] text-white py-4 rounded-2xl flex items-center justify-center gap-3 transition-all shadow-lg hover:shadow-xl active:bg-black"
+          className="w-full cursor-pointer bg-[#111827] text-white py-4 rounded-2xl flex items-center justify-center gap-3 transition-all shadow-lg hover:shadow-xl active:bg-black disabled:opacity-60 disabled:cursor-not-allowed"
         >
           <svg width="20" height="20" viewBox="0 0 48 48" className="shrink-0">
             <path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z" />
@@ -89,8 +95,16 @@ function AuthPage({ isModel = false }) {
             <path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z" />
             <path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571l6.19,5.238C43.196,35.21,44,30.342,44,24C44,22.659,43.862,21.35,43.611,20.083z" />
           </svg>
-          <span className="font-semibold text-base md:text-lg">Continue with Google</span>
+          <span className="font-semibold text-base md:text-lg">
+            {isSigningIn ? "Signing in..." : "Continue with Google"}
+          </span>
         </motion.button>
+
+        {authError && (
+          <p className="mt-4 text-xs text-red-500 font-medium break-words">
+            {authError}
+          </p>
+        )}
 
         {/* Legal Text (Optional but adds trust) */}
         {!isModel && (
